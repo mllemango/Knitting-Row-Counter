@@ -2,8 +2,8 @@
 Inspired by https://gschoppe.com/projects/knitting-row-counter/
 
 ## Feature Plan
-|Feature|Description|Priority|Difficulty|
-|---|---|---|---|---|
+|Feature   |Description   |Priority   |Difficulty   |
+|---   |---   |---   |---   |---   |
 |RC1  |Display current row   |Must Have   |1   |
 |RC2   |Increase row with space   |Must Have   |1   |
 |RC3   |Create Basic Project (name, max rows, current row)   |Must Have   |3   |

@@ -14,7 +14,10 @@ Inspired by https://gschoppe.com/projects/knitting-row-counter/
 | RC8   | Project Statistics - total time since project started   | Good to have   | 1   |
 | RC9   | Project Statistics - number of rows completed each day   | Good to have   |1   |
 | RC10   | Create temporary project (basic project that can be overwritten)   | Nice to have   | 2   |
-| RC11+   | Make data tied to account   | Good to have   | 5   |
+| RC11   | Make data tied to account   | Good to have   | 5   |
+| RC12   | Dark mode   | Good to have   | 1   |
+| RC13   | Import project pdf on the side   | Nice to have   | 4   |
+| RC14   | Notes section   | Nice to have   | 2   |
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

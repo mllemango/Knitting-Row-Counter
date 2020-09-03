@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Typography, Grid, TextField, Avatar, Box } from '@material-ui/core';
-import { getByPlaceholderText } from '@testing-library/react';
+import { Button, Typography, TextField, Box } from '@material-ui/core';
 
 
 class App extends Component {
@@ -8,7 +7,7 @@ class App extends Component {
       super();
 
       this.state = {
-          displayProjectButton: true
+          displayProjectButton: false
           }
   }
   
@@ -27,50 +26,54 @@ class App extends Component {
       );
 
       const newProjectCard = (
-        <Box
-          width={1/3}
-          container
-          justify="center"
-          direction='column'
+        <div align='center'>
+          <Box
+            width={1/2}
+            justifyContent="center"
+            alignItems="center"
+            direction='column'
+            // bgcolor="grey.300"
           >
-          <TextField
-            color='primary'
-            variant="standard"
-            required
-            id="projectName"
-            label="Project Name"
-            autoFocus> 
-            </TextField>
             <TextField
-            color='primary'
-            variant='standard'
-            margin='normal'
-            id='totalRowCount'
-            label='Total Row Count'
-            type='number'
-            required>
-            </TextField>
-            <TextField
-            color='primary'
-            variant='standard'
-            margin='normal'
-            id='curRowCount'
-            label='Current Row Count'
-            type='number'
-            required>
-            </TextField>
+              color='primary'
+              variant="standard"
+              fullWidth
+              id="projectName"
+              label="Project Name"
+              autoFocus> 
+              </TextField>
+              <TextField
+              color='primary'
+              variant='standard'
+              margin='normal'
+              id='totalRowCount'
+              label='Total Row Count'
+              type='number'
+              fullWidth>
+              </TextField>
+              <TextField
+              color='primary'
+              variant='standard'
+              margin='normal'
+              id='curRowCount'
+              label='Current Row Count'
+              type='number'
+              fullWidth>
+              </TextField>
+          </Box>
+          <Box p={4}>
             <Button
               color='Primary'
               align='center'
               variant='outlined'>
               Start
             </Button>
-
-        </Box>
+          </Box>
+          
+        </div>
       )
       return (
         <div>
-
           <Box display='flex' flexDirection="row" justifyContent="center" m={1} p ={2}>
             <img src={require('./yarnIcon.png')} alt="yarnIcon" width='70px'/>
             <Typography

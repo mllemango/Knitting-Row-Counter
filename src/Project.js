@@ -1,11 +1,32 @@
-import React from 'react';
+import React, {useState, Component} from 'react';
 import { Button, TextField, Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import Cookies from 'universal-cookie';
 
-export const newProjectCard = (
+const cookies = new Cookies();
+
+export class NewProjectCard extends Component{
+
+  constructor() {
+    super();
+    this.state = {
+      name: "",
+      totRow: 0,
+      curRow: 0
+    };
+  }
+
+  setProject(){
+    // console.log(this.state)
+    cookies.set("project",JSON.stringify(this.state));
+  };
+
+  render(){
+    
+  return(
     <div align='center'>
       <Box
         width={1/2}
@@ -20,7 +41,8 @@ export const newProjectCard = (
           fullWidth
           id="projectName"
           label="Project Name"
-          autoFocus> 
+          autoFocus
+          onChange={(event) => this.setState({name: event.target.value})}> 
           </TextField>
           <TextField
           color='primary'
@@ -29,7 +51,8 @@ export const newProjectCard = (
           id='totalRowCount'
           label='Total Row Count'
           type='number'
-          fullWidth>
+          fullWidth
+          onChange={(event) => this.setState({totRow: event.target.value})}> 
           </TextField>
           <TextField
           color='primary'
@@ -38,11 +61,23 @@ export const newProjectCard = (
           id='curRowCount'
           label='Current Row Count'
           type='number'
-          fullWidth>
+          fullWidth
+          onChange={(event) => this.setState({curRow: event.target.value})}> 
           </TextField>
+      </Box>
+      <Box p={4}>
+        <Button
+          color="Primary"
+          align="center"
+          variant="outlined"
+          onClick={() => {this.setProject()}}
+        >
+          Start
+        </Button>
       </Box>
     </div>
   );
+}}
 
 
 function ListItemLink(props) {

@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { Button, Typography, Box } from "@material-ui/core";
-import { newProjectCard, ProjectList } from "./Project";
+import { NewProjectCard, ProjectList } from "./Project";
+import Cookies from 'universal-cookie';
 
+// const cookies = new Cookies();
 class App extends Component {
   constructor() {
     super();
@@ -9,6 +11,7 @@ class App extends Component {
     this.state = {
       createNewProjectButton: true,
     };
+    
   }
 
   render() {
@@ -26,18 +29,6 @@ class App extends Component {
           Add New Project
         </Button>
       </div>
-    );
-    const createProject = (
-      <Box p={4}>
-        <Button
-          color="Primary"
-          align="center"
-          variant="outlined"
-          // onClick={() => {}
-        >
-          Start
-        </Button>
-      </Box>
     );
 
     return (
@@ -61,7 +52,7 @@ class App extends Component {
         <Box display="flex" flexDirection="column" align="center" p={2} >
           {createNewProjectButton
             ? newProjectButton
-            : [newProjectCard, createProject]}
+            : <NewProjectCard/>}
         </Box>
       </div>
     );

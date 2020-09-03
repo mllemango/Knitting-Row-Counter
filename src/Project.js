@@ -15,12 +15,14 @@ export class NewProjectCard extends Component{
     this.state = {
       name: "",
       totRow: 0,
-      curRow: 0
+      curRow: 0,
+      time: 0,
     };
   }
 
   setProject(){
     // console.log(this.state)
+    this.setState({time: new Date()});
     cookies.set("project",JSON.stringify(this.state));
   };
 

@@ -24,9 +24,7 @@ export class NewProjectCard extends Component {
 
 
   setProject() {
-    // console.log(this.state)
     this.setState({ startTime: new Date() });
-    // console.log(projects);
     cookies.set("project", JSON.stringify(this.state));
     window.location.reload();
   }
@@ -118,12 +116,15 @@ export function ProjectList() {
 function ProjectView(projectJson) {
   const curRow = projectJson.projectJson.curRow;
   const totRow = projectJson.projectJson.totRow;
+  const lastUpdatedTimestamp = Date.parse(projectJson.projectJson.lastUpdated);
+  const lastUpdatedDate = new Date(lastUpdatedTimestamp).toLocaleDateString();
+  const lastUpdatedTime = new Date(lastUpdatedTimestamp).toLocaleTimeString();
   const completion = Math.round((curRow / totRow) * 100);
   
   return (
     <div align="center">
       <Box>
-        <Typography>Currently on row</Typography>
+        <Typography variant='h5'> On row</Typography>
       </Box>
       <Box position="relative" display="inline-flex" p={4}>
         <CircularProgress
@@ -150,6 +151,7 @@ function ProjectView(projectJson) {
       </Box>
       <Box>
         <Typography>{completion}% complete!</Typography>
+        <Typography>last row updated on {lastUpdatedDate} {lastUpdatedTime} </Typography>
       </Box>
     </div>
   );

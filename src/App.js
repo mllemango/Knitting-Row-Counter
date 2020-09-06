@@ -12,6 +12,7 @@ class App extends Component {
 
     this.state = {
       projectExists: false,
+      newProjectView: false
     };
 
     if (cookies.get('project') !== undefined) {
@@ -22,6 +23,7 @@ class App extends Component {
 
   render() {
     const projectExists = this.state.projectExists;
+    const newProjectView = this.state.newProjectView;
     const newProjectButton = (
       <div justifyContent="center">
         <Button
@@ -29,7 +31,7 @@ class App extends Component {
           align="center"
           variant="outlined"
           onClick={() => {
-            this.setState({ createNewProjectButton: false });
+            this.setState({ newProjectView: true });
           }}
         >
           Add New Project
@@ -58,8 +60,9 @@ class App extends Component {
         
         <Box display="flex" flexDirection="column" align="center" p={2} >
           {projectExists
-            ? newProjectButton
-            : 'project view placeholder'}
+            ? 'project view placeholder'
+            : [newProjectView ? <NewProjectCard/>
+              : newProjectButton]}
         </Box>
       </div>
     );

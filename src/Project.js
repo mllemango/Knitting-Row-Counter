@@ -22,6 +22,7 @@ export class NewProjectCard extends Component{
     this.setState({time: new Date()});
     // console.log(projects);
     cookies.set("project",JSON.stringify(this.state));
+    window.location.reload();
   };
 
   render(){

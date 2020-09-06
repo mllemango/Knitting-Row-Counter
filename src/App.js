@@ -3,19 +3,25 @@ import { Button, Typography, Box } from "@material-ui/core";
 import { NewProjectCard, ProjectList } from "./Project";
 import Cookies from 'universal-cookie';
 
+const cookies = new Cookies();
+
 // const cookies = new Cookies();
 class App extends Component {
   constructor() {
     super();
 
     this.state = {
-      createNewProjectButton: true,
+      projectExists: false,
     };
+
+    if (cookies.get('project') !== undefined) {
+      this.setState({projectExists: true});
+    }
     
   }
 
   render() {
-    const createNewProjectButton = this.state.createNewProjectButton;
+    const projectExists = this.state.projectExists;
     const newProjectButton = (
       <div justifyContent="center">
         <Button
@@ -49,10 +55,11 @@ class App extends Component {
 
         {/* project */}
         <ProjectList />
+        
         <Box display="flex" flexDirection="column" align="center" p={2} >
-          {createNewProjectButton
+          {projectExists
             ? newProjectButton
-            : <NewProjectCard/>}
+            : 'project view placeholder'}
         </Box>
       </div>
     );

@@ -23,6 +23,9 @@ export class NewProjectCard extends Component{
   setProject(){
     // console.log(this.state)
     this.setState({time: new Date()});
+    const projects = cookies.get("projects");
+    console.log(projects);
+    //TODO: correct json format so name is key
     cookies.set("project",JSON.stringify(this.state));
   };
 
@@ -87,29 +90,27 @@ function ListItemLink(props) {
 }
 
 export function ProjectList() {
-  // const classes = useStyles();
-
+  const projectJson = cookies.get("project");
+  var projectName = '';
+  if (projectJson === undefined) {
+    projectName = "Start new project"
+  }
+  else {
+    projectName = 'Current project: ' +  projectJson.name;
+  }
   return (
     <div align='center'>
       <Box
         width={1/2}
         justifyContent="center"
         alignItems="center"
-        bgcolor="grey.300"
+        // bgcolor="grey.300"
         >
       <Typography 
         align='center'
         variant='h5'>
-        Projects
+        {projectName}
       </Typography>
-        <List >
-          <ListItem button alignItems="flex-start">
-            <ListItemText primary="Project 1" />
-          </ListItem>
-          <ListItemLink href="#simple-list">
-            <ListItemText primary="Project 2" />
-          </ListItemLink>
-        </List>
       </Box>
     </div>
   );

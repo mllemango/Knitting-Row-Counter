@@ -4,6 +4,7 @@ Heavily inspired by https://gschoppe.com/projects/knitting-row-counter/
 ## Feature Plan
 
 Differentiate visually between last completed row and current row
+
 Project Statistics - average time between rows completed  
 Project Statistics - total time since project started   
 Project Statistics - number of rows completed each day   

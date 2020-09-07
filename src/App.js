@@ -3,7 +3,6 @@ import { Button, Typography, Box } from "@material-ui/core";
 import { NewProjectCard, ProjectList } from "./Project";
 import Cookies from "universal-cookie";
 
-
 const cookies = new Cookies();
 
 // const cookies = new Cookies();
@@ -24,6 +23,7 @@ class App extends Component {
   }
 
   spaceFunction(event) {
+    //TODO: fix bug where space in project name increments row count
     if (event.keyCode === 32) {
       const project = cookies.get("project");
       const curRow = parseInt(project.curRow);
@@ -85,6 +85,18 @@ class App extends Component {
           {projectExists
             ? "project view placeholder"
             : [newProjectView ? <NewProjectCard /> : newProjectButton]}
+        </Box>
+        <Box
+          marginTop={10}
+          alignItems="center"
+          display="flex"
+          flexDirection="row"
+          justifyContent="center"
+        >
+          <Typography variant="overline">
+            {" "}
+            use space bar or tap current row to increase
+          </Typography>
         </Box>
       </div>
     );

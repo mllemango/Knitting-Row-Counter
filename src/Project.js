@@ -167,6 +167,13 @@ export function ProjectList() {
   );
 }
 
+function IncrementCurRow(projectJson) {
+  projectJson.lastUpdated = new Date();
+  projectJson.curRow = projectJson.curRow + 1;
+  cookies.set("project", projectJson);
+  window.location.reload();
+}
+
 function ProjectView(props) {
   const projectJson = props.projectJson;
   const curRow = projectJson.curRow;
@@ -175,7 +182,7 @@ function ProjectView(props) {
   const lastUpdatedDate = new Date(lastUpdatedTimestamp).toLocaleDateString();
   const lastUpdatedTime = new Date(lastUpdatedTimestamp).toLocaleTimeString();
   let completion = Math.round((curRow / totRow) * 100);
-  if (isNaN(completion)) completion=0;
+  if (isNaN(completion)) completion = 0;
   const hasPattern = projectJson.hasPattern;
 
   return (
@@ -184,7 +191,12 @@ function ProjectView(props) {
         <Typography variant="h5"> On row</Typography>
       </Box>
 
-      <Box position="relative" display="inline-flex" p={1}>
+      <Box
+        position="relative"
+        display="inline-flex"
+        p={1}
+        onClick={() => IncrementCurRow(projectJson)}
+      >
         <CircularProgress
           variant="static"
           value={completion}
@@ -207,16 +219,17 @@ function ProjectView(props) {
           </Typography>
         </Box>
       </Box>
-      {hasPattern? 
-      <Box
-        // border="1px solid black"
-        position="relative"
-        display="flex"
-        flexDirection="column"
-        paddingBottom={2}
-      >
-        <DeterminePattern projectJson={projectJson} />
-      </Box> : null}
+      {hasPattern ? (
+        <Box
+          // border="1px solid black"
+          position="relative"
+          display="flex"
+          flexDirection="column"
+          paddingBottom={2}
+        >
+          <DeterminePattern projectJson={projectJson} />
+        </Box>
+      ) : null}
 
       <Box>
         <Typography>Total rows: {totRow} </Typography>
@@ -242,15 +255,15 @@ function ProjectView(props) {
     let repeat = projectJson.patternRepeat;
     let start = projectJson.patternStart;
     let curRow = projectJson.curRow;
-    let curPatternFinished = (curRow - (start - 1)) % repeat
+    let curPatternFinished = (curRow - (start - 1)) % repeat;
     if (curPatternFinished === 0) curPatternFinished = repeat;
     let curPatternUnfinished = repeat - curPatternFinished;
     for (let i = 0; i < curPatternFinished; i++) {
       pattern.push(<PatternFinished />);
-    };
+    }
     for (let i = 0; i < curPatternUnfinished; i++) {
       pattern.push(<PatternUnfinished />);
-    };
+    }
     return <div>{pattern}</div>;
   }
 }

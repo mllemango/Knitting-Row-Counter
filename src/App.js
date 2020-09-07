@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Typography, Box } from "@material-ui/core";
+import { Button, Typography, Box, Divider } from "@material-ui/core";
 import { NewProjectCard, ProjectList } from "./Project";
 import Cookies from "universal-cookie";
 import Footer from "./footer.js";
@@ -58,7 +58,7 @@ class App extends Component {
             this.setState({ newProjectView: true });
           }}
         >
-          Add New Project
+          New Project
         </Button>
       </div>
     );
@@ -86,10 +86,11 @@ class App extends Component {
 
         {/* project */}
         <ProjectList />
+        <Divider variant="middle" style={{marginTop: 20, marginBottom: 10}}/>
 
         <Box display="flex" flexDirection="column" align="center" p={2}>
           {projectExists
-            ? "project view placeholder"
+            ? null
             : [newProjectView ? <NewProjectCard /> : newProjectButton]}
         </Box>
         <Box

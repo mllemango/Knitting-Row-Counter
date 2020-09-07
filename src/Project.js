@@ -32,7 +32,6 @@ export class NewProjectCard extends Component {
   setProject() {
     this.setState({ startTime: new Date() });
     cookies.set("project", JSON.stringify(this.state));
-    console.log(this.state);
     window.location.reload();
   }
 
@@ -220,6 +219,7 @@ function ProjectView(props) {
       </Box> : null}
 
       <Box>
+        <Typography>Total rows: {totRow} </Typography>
         <Typography>{completion}% complete!</Typography>
         <Typography>
           last row updated on {lastUpdatedDate} {lastUpdatedTime}{" "}

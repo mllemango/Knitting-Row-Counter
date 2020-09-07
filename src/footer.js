@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Typography, Link } from "@material-ui/core";
-import GitHubIcon from '@material-ui/icons/GitHub';
-import MailIcon from '@material-ui/icons/Mail';
+import GitHubIcon from "@material-ui/icons/GitHub";
+import MailIcon from "@material-ui/icons/Mail";
 
 var style = {
   borderTop: "1px solid #E7E7E7",
@@ -29,20 +29,27 @@ function Footer() {
     <div>
       <div style={phantom} />
       <div style={style}>
-        <Typography color="primary" variant='overline'style={{ paddingRight: 20, alignItems:'center' }}>
-        
+        <Typography
+          color="primary"
+          variant="overline"
+          style={{ paddingRight: 20, alignItems: "center" }}
+        >
           <Link
             color="inherit"
             href="https://github.com/mllemango/Knitting-Row-Counter"
             target="_blank"
-          > <GitHubIcon style={{paddingRight: 10,position:'relative', top:'8px'}}/>
+          >
+            <GitHubIcon
+              style={{ paddingRight: 10, position: "relative", top: "8px" }}
+            />
             Project on GitHub
           </Link>
         </Typography>
-        <Typography variant='overline'>
-          
+        <Typography variant="overline">
           <Link href="mailto:mel.wang24@gmail.com" target="_blank">
-            <MailIcon style={{paddingRight:10, position:'relative', top:'8px'}}/>
+            <MailIcon
+              style={{ paddingRight: 10, position: "relative", top: "8px" }}
+            />
             Contact Me
           </Link>
         </Typography>

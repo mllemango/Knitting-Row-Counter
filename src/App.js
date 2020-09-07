@@ -28,7 +28,7 @@ class App extends Component {
       const project = cookies.get("project");
       const curRow = parseInt(project.curRow);
       const totRow = parseInt(project.totRow);
-      if (curRow !== totRow) {
+      if (curRow !== totRow || curRow === 0) {
         project.lastUpdated = new Date();
         project.curRow = curRow + 1;
         cookies.set("project", project);

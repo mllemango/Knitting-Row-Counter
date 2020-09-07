@@ -18,8 +18,8 @@ export class NewProjectCard extends Component {
   constructor() {
     super();
     this.state = {
-      name: "",
-      totRow: 0,
+      name: "Current",
+      totRow: 100,
       curRow: 0,
       startTime: 0,
       lastUpdated: 0,
@@ -32,6 +32,7 @@ export class NewProjectCard extends Component {
   setProject() {
     this.setState({ startTime: new Date() });
     cookies.set("project", JSON.stringify(this.state));
+    console.log(this.state);
     window.location.reload();
   }
 
@@ -174,7 +175,8 @@ function ProjectView(props) {
   const lastUpdatedTimestamp = Date.parse(projectJson.lastUpdated);
   const lastUpdatedDate = new Date(lastUpdatedTimestamp).toLocaleDateString();
   const lastUpdatedTime = new Date(lastUpdatedTimestamp).toLocaleTimeString();
-  const completion = Math.round((curRow / totRow) * 100);
+  let completion = Math.round((curRow / totRow) * 100);
+  if (isNaN(completion)) completion=0;
   const hasPattern = projectJson.hasPattern;
 
   return (

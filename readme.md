@@ -2,22 +2,16 @@
 Heavily inspired by https://gschoppe.com/projects/knitting-row-counter/
 
 ## Feature Plan
-| Feature   | Description   | Priority   | Difficulty   |
-| -------   | -----------   | --------   | ----------   |
-| RC1  | Display current row   | Must Have   | 1   |
-| RC2   | Increase row with space   | Must Have   | 1   |
-| RC3   | Create Basic Project (name, max rows, current row)   | Must Have   | 3   |
-| RC4   | Add pattern to project  | Must Have   | 2   |
-| RC5   | Display time for last completed row   | Must Have   | 1   |
-| RC6   | Differentiate visually between last completed row and current row   | Must Have   | 1   |
-| RC7   | Project Statistics - average time between rows completed  | Nice to have  | 2   |
-| RC8   | Project Statistics - total time since project started   | Good to have   | 1   |
-| RC9   | Project Statistics - number of rows completed each day   | Good to have   |1   |
-| RC10   | Create temporary project (basic project that can be overwritten)   | Nice to have   | 2   |
-| RC11   | Make data tied to account   | Good to have   | 5   |
-| RC12   | Dark mode   | Good to have   | 1   |
-| RC13   | Import project pdf on the side   | Nice to have   | 4   |
-| RC14   | Notes section   | Nice to have   | 2   |
+
+Differentiate visually between last completed row and current row
+Project Statistics - average time between rows completed  
+Project Statistics - total time since project started   
+Project Statistics - number of rows completed each day   
+Create temporary project (basic project that can be overwritten)  
+Make data tied to account   
+Dark mode   
+Import project pdf on the side   
+Notes section  
 
 ### `npm start`
 

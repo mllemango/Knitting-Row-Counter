@@ -221,7 +221,6 @@ class ProjectView extends Component {
             justifyContent="center"
           >
             <Typography variant="h4" component="div" color="primary">
-              {" "}
               {curRow}
             </Typography>
           </Box>

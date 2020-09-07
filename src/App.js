@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Button, Typography, Box } from "@material-ui/core";
 import { NewProjectCard, ProjectList } from "./Project";
 import Cookies from "universal-cookie";
+import Footer from "./footer.js"
 
 const cookies = new Cookies();
 
@@ -98,6 +99,7 @@ class App extends Component {
             use space bar or tap current row to increase
           </Typography>
         </Box>
+        <Footer></Footer>
       </div>
     );
   }

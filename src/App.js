@@ -72,7 +72,7 @@ class App extends Component {
           m={1}
           p={2}
         >
-          <img src={require("./yarnIcon.png")} alt="yarnIcon" width="70px" />
+          <img src={require("./yarnIcon.png")} alt="yarnIcon" width="70px" height="70px" />
           <Typography align="center" variant="h2">
             Row Counter
           </Typography>

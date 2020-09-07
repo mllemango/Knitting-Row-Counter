@@ -5,8 +5,12 @@ import {
   Box,
   Typography,
   CircularProgress,
+  Switch,
+  FormControlLabel,
 } from "@material-ui/core";
 import Cookies from "universal-cookie";
+import { RadioButtonUnchecked, RadioButtonChecked } from "@material-ui/icons";
+// import yarnIcon from './yarnball.png'
 
 const cookies = new Cookies();
 
@@ -19,9 +23,11 @@ export class NewProjectCard extends Component {
       curRow: 0,
       startTime: 0,
       lastUpdated: 0,
+      hasPattern: false,
+      patternRepeat: 0,
+      patternStart: 0,
     };
   }
-
 
   setProject() {
     this.setState({ startTime: new Date() });
@@ -30,6 +36,7 @@ export class NewProjectCard extends Component {
   }
 
   render() {
+    const hasPattern = this.state.hasPattern;
     return (
       <div align="center">
         <Box
@@ -68,6 +75,50 @@ export class NewProjectCard extends Component {
             fullWidth
             onChange={(event) => this.setState({ curRow: event.target.value })}
           ></TextField>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={hasPattern}
+                onChange={(event) =>
+                  this.setState({ hasPattern: event.target.checked })
+                }
+                name="hasPattern"
+                id="hasPattern"
+                color="primary"
+              />
+            }
+            label="Project contains pattern"
+          />
+          {hasPattern
+            ? [
+                <TextField
+                  color="primary"
+                  variant="standard"
+                  margin="normal"
+                  id="patternRepeat"
+                  label="Pattern repeats every"
+                  type="number"
+                  fullWidth
+                  defaultValue="0"
+                  onChange={(event) =>
+                    this.setState({ patternRepeat: event.target.value })
+                  }
+                ></TextField>,
+                <TextField
+                  color="primary"
+                  variant="standard"
+                  margin="normal"
+                  id="patternStart"
+                  label="Pattern starts at row"
+                  type="number"
+                  fullWidth
+                  defaultValue="0"
+                  onChange={(event) =>
+                    this.setState({ patternStart: event.target.value })
+                  }
+                ></TextField>,
+              ]
+            : null}
         </Box>
         <Box p={4}>
           <Button
@@ -113,20 +164,22 @@ export function ProjectList() {
   );
 }
 
-function ProjectView(projectJson) {
-  const curRow = projectJson.projectJson.curRow;
-  const totRow = projectJson.projectJson.totRow;
-  const lastUpdatedTimestamp = Date.parse(projectJson.projectJson.lastUpdated);
+function ProjectView(props) {
+  const projectJson = props.projectJson;
+  const curRow = projectJson.curRow;
+  const totRow = projectJson.totRow;
+  const lastUpdatedTimestamp = Date.parse(projectJson.lastUpdated);
   const lastUpdatedDate = new Date(lastUpdatedTimestamp).toLocaleDateString();
   const lastUpdatedTime = new Date(lastUpdatedTimestamp).toLocaleTimeString();
   const completion = Math.round((curRow / totRow) * 100);
-  
+
   return (
     <div align="center">
       <Box>
-        <Typography variant='h5'> On row</Typography>
+        <Typography variant="h5"> On row</Typography>
       </Box>
-      <Box position="relative" display="inline-flex" p={4}>
+
+      <Box position="relative" display="inline-flex" p={1}>
         <CircularProgress
           variant="static"
           value={completion}
@@ -149,10 +202,48 @@ function ProjectView(projectJson) {
           </Typography>
         </Box>
       </Box>
+
+      <Box
+        border="1px solid black"
+        position="relative"
+        display="flex"
+        flexDirection="column"
+      >
+        <DeterminePattern projectJson={projectJson} />
+      </Box>
+
       <Box>
         <Typography>{completion}% complete!</Typography>
-        <Typography>last row updated on {lastUpdatedDate} {lastUpdatedTime} </Typography>
+        <Typography>
+          last row updated on {lastUpdatedDate} {lastUpdatedTime}{" "}
+        </Typography>
       </Box>
     </div>
   );
+
+  function PatternUnfinished() {
+    return <RadioButtonUnchecked color="primary" fontSize="small" />;
+  }
+
+  function PatternFinished() {
+    return <RadioButtonChecked color="primary" fontSize="small" />;
+  }
+
+  function DeterminePattern(props) {
+    const projectJson = props.projectJson;
+    let pattern = [];
+    let repeat = projectJson.patternRepeat;
+    let start = projectJson.patternStart;
+    let curRow = projectJson.curRow;
+    let curPatternFinished = (curRow - (start - 1)) % repeat
+    if (curPatternFinished === 0) curPatternFinished = repeat;
+    let curPatternUnfinished = repeat - curPatternFinished;
+    for (let i = 0; i < curPatternFinished; i++) {
+      pattern.push(<PatternFinished />);
+    };
+    for (let i = 0; i < curPatternUnfinished; i++) {
+      pattern.push(<PatternUnfinished />);
+    };
+    return <div>{pattern}</div>;
+  }
 }

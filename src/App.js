@@ -3,6 +3,7 @@ import { Button, Typography, Box } from "@material-ui/core";
 import { NewProjectCard, ProjectList } from "./Project";
 import Cookies from "universal-cookie";
 
+
 const cookies = new Cookies();
 
 // const cookies = new Cookies();

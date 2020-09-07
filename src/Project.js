@@ -176,10 +176,14 @@ class ProjectView extends Component {
   }
 
   IncrementCurRow(projectJson) {
-    projectJson.lastUpdated = new Date();
-    projectJson.curRow = parseInt(projectJson.curRow) + 1;
-    cookies.set("project", projectJson);
-    this.setState({ value: this.state.value + 1 }); //forcing a rerender
+    const curRow=projectJson.curRow;
+    const totRow = projectJson.totRow;
+    if (curRow !== totRow || curRow === 0) {
+      projectJson.lastUpdated = new Date();
+      projectJson.curRow = parseInt(curRow) + 1;
+      cookies.set("project", projectJson);
+      this.setState({ value: this.state.value + 1 }); //forcing a rerender
+    }
   }
 
   render() {

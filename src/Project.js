@@ -147,7 +147,7 @@ export function ProjectList() {
   if (projectJson === undefined) {
     projectName = "Start new project";
   } else {
-    projectName = "Current project: " + projectJson.name;
+    projectName = "Project: " + projectJson.name;
     projectView = <ProjectView projectJson={projectJson} />;
   }
   return (
@@ -158,7 +158,7 @@ export function ProjectList() {
         alignItems="center"
         // bgcolor="grey.300"
       >
-        <Typography align="center" variant="h5">
+        <Typography align="center" variant="h5" color="secondary">
           {projectName}
         </Typography>
         {projectView}
@@ -195,7 +195,9 @@ class ProjectView extends Component {
     return (
       <div align="center">
         <Box>
-          <Typography variant="h5"> On row</Typography>
+          <Typography variant="subtitle2" color="secondary">
+            Current Row
+          </Typography>
         </Box>
 
         <Box
@@ -209,6 +211,7 @@ class ProjectView extends Component {
             value={completion}
             size={150}
             thickness={4.5}
+            color="primary"
           />
           <Box
             top={0}
@@ -220,7 +223,7 @@ class ProjectView extends Component {
             alignItems="center"
             justifyContent="center"
           >
-            <Typography variant="h4" component="div" color="primary">
+            <Typography variant="h3" component="div" color="primary">
               {curRow}
             </Typography>
           </Box>
@@ -238,10 +241,10 @@ class ProjectView extends Component {
         ) : null}
 
         <Box>
-          <Typography>Total rows: {totRow} </Typography>
-          <Typography>{completion}% complete!</Typography>
-          <Typography>
-            last row updated on {lastUpdatedDate} {lastUpdatedTime}{" "}
+          <Typography color="secondary">Total rows: {totRow}</Typography>
+          <Typography color="secondary">{completion}% complete!</Typography>
+          <Typography color="secondary">
+            last row updated on {lastUpdatedDate} {lastUpdatedTime}
           </Typography>
         </Box>
       </div>

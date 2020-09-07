@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Typography, Link } from "@material-ui/core";
+import { Typography, Link } from "@material-ui/core";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import MailIcon from "@material-ui/icons/Mail";
 
@@ -30,9 +30,9 @@ function Footer() {
       <div style={phantom} />
       <div style={style}>
         <Typography
-          color="primary"
+          color="secondary"
           variant="overline"
-          style={{ paddingRight: 20, alignItems: "center" }}
+          style={{ paddingRight: 20 }}
         >
           <Link
             color="inherit"
@@ -45,8 +45,8 @@ function Footer() {
             Project on GitHub
           </Link>
         </Typography>
-        <Typography variant="overline">
-          <Link href="mailto:mel.wang24@gmail.com" target="_blank">
+        <Typography color="secondary" variant="overline">
+          <Link color='inherit' href="mailto:mel.wang24@gmail.com" target="_blank">
             <MailIcon
               style={{ paddingRight: 10, position: "relative", top: "8px" }}
             />

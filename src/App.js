@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Button, Typography, Box } from "@material-ui/core";
 import { NewProjectCard, ProjectList } from "./Project";
 import Cookies from "universal-cookie";
-import Footer from "./footer.js"
+import Footer from "./footer.js";
 
 const cookies = new Cookies();
 
@@ -51,7 +51,7 @@ class App extends Component {
     const newProjectButton = (
       <div justifyContent="center">
         <Button
-          color="Primary"
+          color="primary"
           align="center"
           variant="outlined"
           onClick={() => {
@@ -73,8 +73,13 @@ class App extends Component {
           m={1}
           p={2}
         >
-          <img src={require("./yarnIcon.png")} alt="yarnIcon" width="70px" height="70px" />
-          <Typography align="center" variant="h2">
+          <img
+            src={require("./yarnIcon.png")}
+            alt="yarnIcon"
+            width="70px"
+            height="70px"
+          />
+          <Typography align="center" variant="h2" color="secondary">
             Row Counter
           </Typography>
         </Box>
@@ -94,8 +99,7 @@ class App extends Component {
           flexDirection="row"
           justifyContent="center"
         >
-          <Typography variant="overline">
-            {" "}
+          <Typography variant="overline" color="secondary">
             use space bar or tap current row to increase
           </Typography>
         </Box>

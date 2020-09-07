@@ -53,6 +53,7 @@ export class NewProjectCard extends Component {
             id="projectName"
             label="Project Name"
             autoFocus
+            defaultValue="Current"
             onChange={(event) => this.setState({ name: event.target.value })}
           ></TextField>
           <TextField
@@ -63,6 +64,7 @@ export class NewProjectCard extends Component {
             label="Total Row Count"
             type="number"
             fullWidth
+            defaultValue="100"
             onChange={(event) => this.setState({ totRow: event.target.value })}
           ></TextField>
           <TextField
@@ -73,6 +75,7 @@ export class NewProjectCard extends Component {
             label="Current Row Count"
             type="number"
             fullWidth
+            defaultValue="0"
             onChange={(event) => this.setState({ curRow: event.target.value })}
           ></TextField>
           <FormControlLabel
@@ -172,6 +175,7 @@ function ProjectView(props) {
   const lastUpdatedDate = new Date(lastUpdatedTimestamp).toLocaleDateString();
   const lastUpdatedTime = new Date(lastUpdatedTimestamp).toLocaleTimeString();
   const completion = Math.round((curRow / totRow) * 100);
+  const hasPattern = projectJson.hasPattern;
 
   return (
     <div align="center">
@@ -202,15 +206,16 @@ function ProjectView(props) {
           </Typography>
         </Box>
       </Box>
-
+      {hasPattern? 
       <Box
-        border="1px solid black"
+        // border="1px solid black"
         position="relative"
         display="flex"
         flexDirection="column"
+        paddingBottom={2}
       >
         <DeterminePattern projectJson={projectJson} />
-      </Box>
+      </Box> : null}
 
       <Box>
         <Typography>{completion}% complete!</Typography>

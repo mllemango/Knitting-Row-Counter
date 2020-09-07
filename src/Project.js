@@ -167,94 +167,93 @@ export function ProjectList() {
   );
 }
 
-function IncrementCurRow(projectJson) {
-  projectJson.lastUpdated = new Date();
-  projectJson.curRow = projectJson.curRow + 1;
-  cookies.set("project", projectJson);
-  window.location.reload();
-}
+class ProjectView extends Component {
+  constructor() {
+    super();
+    this.state = {
+      value: 0,
+    };
+  }
 
-function ProjectView(props) {
-  const projectJson = props.projectJson;
-  const curRow = projectJson.curRow;
-  const totRow = projectJson.totRow;
-  const lastUpdatedTimestamp = Date.parse(projectJson.lastUpdated);
-  const lastUpdatedDate = new Date(lastUpdatedTimestamp).toLocaleDateString();
-  const lastUpdatedTime = new Date(lastUpdatedTimestamp).toLocaleTimeString();
-  let completion = Math.round((curRow / totRow) * 100);
-  if (isNaN(completion)) completion = 0;
-  const hasPattern = projectJson.hasPattern;
+  IncrementCurRow(projectJson) {
+    projectJson.lastUpdated = new Date();
+    projectJson.curRow = parseInt(projectJson.curRow) + 1;
+    cookies.set("project", projectJson);
+    this.setState({ value: this.state.value + 1 }); //forcing a rerender
+  }
 
-  return (
-    <div align="center">
-      <Box>
-        <Typography variant="h5"> On row</Typography>
-      </Box>
+  render() {
+    const projectJson = this.props.projectJson;
+    const curRow = parseInt(projectJson.curRow);
+    const totRow = parseInt(projectJson.totRow);
+    const lastUpdatedTimestamp = Date.parse(projectJson.lastUpdated);
+    const lastUpdatedDate = new Date(lastUpdatedTimestamp).toLocaleDateString();
+    const lastUpdatedTime = new Date(lastUpdatedTimestamp).toLocaleTimeString();
+    let completion = Math.round((curRow / totRow) * 100);
+    if (isNaN(completion)) completion = 0;
+    const hasPattern = projectJson.hasPattern;
+    return (
+      <div align="center">
+        <Box>
+          <Typography variant="h5"> On row</Typography>
+        </Box>
 
-      <Box
-        position="relative"
-        display="inline-flex"
-        p={1}
-        onClick={() => IncrementCurRow(projectJson)}
-      >
-        <CircularProgress
-          variant="static"
-          value={completion}
-          size={150}
-          thickness={4.5}
-        />
         <Box
-          top={0}
-          left={0}
-          bottom={0}
-          right={0}
-          position="absolute"
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
+          position="relative"
+          display="inline-flex"
+          p={1}
+          onClick={() => this.IncrementCurRow(projectJson)}
         >
-          <Typography variant="h4" component="div" color="primary">
-            {" "}
-            {curRow}
+          <CircularProgress
+            variant="static"
+            value={completion}
+            size={150}
+            thickness={4.5}
+          />
+          <Box
+            top={0}
+            left={0}
+            bottom={0}
+            right={0}
+            position="absolute"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Typography variant="h4" component="div" color="primary">
+              {" "}
+              {curRow}
+            </Typography>
+          </Box>
+        </Box>
+        {hasPattern ? (
+          <Box
+            // border="1px solid black"
+            position="relative"
+            display="flex"
+            flexDirection="column"
+            paddingBottom={2}
+          >
+            {this.DeterminePattern(projectJson)}
+          </Box>
+        ) : null}
+
+        <Box>
+          <Typography>Total rows: {totRow} </Typography>
+          <Typography>{completion}% complete!</Typography>
+          <Typography>
+            last row updated on {lastUpdatedDate} {lastUpdatedTime}{" "}
           </Typography>
         </Box>
-      </Box>
-      {hasPattern ? (
-        <Box
-          // border="1px solid black"
-          position="relative"
-          display="flex"
-          flexDirection="column"
-          paddingBottom={2}
-        >
-          <DeterminePattern projectJson={projectJson} />
-        </Box>
-      ) : null}
-
-      <Box>
-        <Typography>Total rows: {totRow} </Typography>
-        <Typography>{completion}% complete!</Typography>
-        <Typography>
-          last row updated on {lastUpdatedDate} {lastUpdatedTime}{" "}
-        </Typography>
-      </Box>
-    </div>
-  );
-
-  function PatternUnfinished() {
-    return <RadioButtonUnchecked color="primary" fontSize="small" />;
+      </div>
+    );
   }
 
-  function PatternFinished() {
-    return <RadioButtonChecked color="primary" fontSize="small" />;
-  }
-
-  function DeterminePattern(props) {
-    const projectJson = props.projectJson;
+  DeterminePattern(projectJson) {
     let pattern = [];
-    let repeat = projectJson.patternRepeat;
-    let start = projectJson.patternStart;
-    let curRow = projectJson.curRow;
+    let repeat = parseInt(projectJson.patternRepeat);
+    let start = parseInt(projectJson.patternStart);
+    let curRow = parseInt(projectJson.curRow);
     let curPatternFinished = (curRow - (start - 1)) % repeat;
     if (curPatternFinished === 0) curPatternFinished = repeat;
     let curPatternUnfinished = repeat - curPatternFinished;
@@ -266,4 +265,12 @@ function ProjectView(props) {
     }
     return <div>{pattern}</div>;
   }
+}
+
+function PatternUnfinished() {
+  return <RadioButtonUnchecked color="primary" fontSize="small" />;
+}
+
+function PatternFinished() {
+  return <RadioButtonChecked color="primary" fontSize="small" />;
 }

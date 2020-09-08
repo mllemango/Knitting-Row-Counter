@@ -70,19 +70,17 @@ class App extends Component {
           display="flex"
           flexDirection="row"
           justifyContent="center"
-          m={1}
-          p={2}
+          p={1}
+          backgroundColor='secondary'
         >
           <img
-            src={require("./yarnIcon.png")}
+            src={require("./logo.png")}
             alt="yarnIcon"
-            width="70px"
-            height="70px"
+            width='50%'
+            height='50%'
           />
-          <Typography align="center" variant="h2" color="secondary">
-            Row Counter
-          </Typography>
         </Box>
+        <Divider variant="middle" style={{marginBottom: 30}} />
 
         {/* project */}
         <ProjectList />

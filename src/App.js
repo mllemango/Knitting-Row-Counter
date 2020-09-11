@@ -25,6 +25,7 @@ class App extends Component {
 
   spaceFunction(event) {
     //TODO: fix bug where space in project name increments row count
+    
     if (event.keyCode === 32) {
       const project = cookies.get("project");
       const curRow = parseInt(project.curRow);

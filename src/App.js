@@ -1,9 +1,10 @@
-import React, { Component} from "react";
+import React, { Component } from "react";
 import { Button, Typography, Box, Divider } from "@material-ui/core";
 import { NewProjectCard, Project } from "./Project";
 import Cookies from "universal-cookie";
 import Footer from "./footer.js";
 import {Notes} from './Notes.js';
+import RichTextExample from './richtext.js'
 
 const cookies = new Cookies();
 
@@ -83,13 +84,23 @@ class App extends Component {
         </Box>
         <Divider variant="middle" style={{marginBottom: 30}} />
 
-        {/* notes */}
-        <Box>
-          <Notes />
-        </Box>
-        {/* project */}
-        <Project />
 
+        <Box
+          display="flex"
+          flexDirection="row"
+          border="1px solid black"
+        >
+          {/* notes */}
+          <Box
+            display="flex"
+            flexDirection="column"
+            >
+            {RichTextExample}
+          </Box>
+          
+          {/* project */}
+          <Project />
+        </Box>
         {/* new project button */}
         <Divider variant="middle" style={{marginTop: 20, marginBottom: 10}}/>
 

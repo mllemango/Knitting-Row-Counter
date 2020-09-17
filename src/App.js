@@ -1,8 +1,9 @@
-import React, { Component } from "react";
+import React, { Component} from "react";
 import { Button, Typography, Box, Divider } from "@material-ui/core";
-import { NewProjectCard, ProjectList } from "./Project";
+import { NewProjectCard, Project } from "./Project";
 import Cookies from "universal-cookie";
 import Footer from "./footer.js";
+import {Notes} from './Notes.js';
 
 const cookies = new Cookies();
 
@@ -63,7 +64,6 @@ class App extends Component {
         </Button>
       </div>
     );
-
     return (
       <div>
         {/* title */}
@@ -83,8 +83,14 @@ class App extends Component {
         </Box>
         <Divider variant="middle" style={{marginBottom: 30}} />
 
+        {/* notes */}
+        <Box>
+          <Notes />
+        </Box>
         {/* project */}
-        <ProjectList />
+        <Project />
+
+        {/* new project button */}
         <Divider variant="middle" style={{marginTop: 20, marginBottom: 10}}/>
 
         <Box display="flex" flexDirection="column" align="center" p={2}>
@@ -103,7 +109,9 @@ class App extends Component {
             use space bar or tap current row to increase
           </Typography>
         </Box>
-        <Footer></Footer>
+
+        {/* footer */}
+        <Footer/>
       </div>
     );
   }

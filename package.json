@@ -12,7 +12,9 @@
     "react-cookie": "^4.0.3",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.3",
-    "reactstrap": "^8.5.1"
+    "reactstrap": "^8.5.1",
+    "slate": "^0.58.4",
+    "slate-react": "^0.58.4"
   },
   "scripts": {
     "start": "react-scripts start",

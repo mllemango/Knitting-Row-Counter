@@ -140,7 +140,7 @@ export class NewProjectCard extends Component {
   }
 }
 
-export function ProjectList() {
+export function Project() {
   const projectJson = cookies.get("project");
   var projectName = "";
   var projectView = "";

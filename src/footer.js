@@ -15,6 +15,7 @@ var style = {
   bottom: "0",
   height: "20px",
   width: "100%",
+  backgroundColor: 'white'
 };
 
 var phantom = {
@@ -22,6 +23,7 @@ var phantom = {
   padding: "20px",
   height: "60px",
   width: "100%",
+  
 };
 
 function Footer() {

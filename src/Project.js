@@ -10,6 +10,9 @@ import {
 } from "@material-ui/core";
 import Cookies from "universal-cookie";
 import { RadioButtonUnchecked, RadioButtonChecked } from "@material-ui/icons";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
+import RemoveCircleIcon from "@material-ui/icons/RemoveCircle";
+
 // import yarnIcon from './yarnball.png'
 
 const cookies = new Cookies();
@@ -176,13 +179,23 @@ class ProjectView extends Component {
   }
 
   IncrementCurRow(projectJson) {
-    const curRow=projectJson.curRow;
+    const curRow = projectJson.curRow;
     const totRow = projectJson.totRow;
-    if (curRow !== totRow || curRow === 0) {
+    if (curRow < totRow) {
       projectJson.lastUpdated = new Date();
       projectJson.curRow = parseInt(curRow) + 1;
       cookies.set("project", projectJson);
       this.setState({ value: this.state.value + 1 }); //forcing a rerender
+    }
+  }
+
+  DecrementCurRow(projectJson) {
+    const curRow = projectJson.curRow;
+    if (curRow > 0) {
+      projectJson.lastUpdated = new Date();
+      projectJson.curRow = parseInt(curRow) - 1;
+      cookies.set("project", projectJson);
+      this.setState({ value: this.state.value - 1 }); //forcing a rerender
     }
   }
 
@@ -203,7 +216,18 @@ class ProjectView extends Component {
             Current Row
           </Typography>
         </Box>
-
+        <Box display='flex' flexDirection='row' justifyContent='center' alignItems='center'>
+        
+          <RemoveCircleIcon
+            variant="static"
+            color="primary"
+            style={{
+              display: "flex",
+              position: "relative",
+              paddingRight: '15px'
+            }}
+            onClick={() => this.DecrementCurRow(projectJson)}
+          />
         <Box
           position="relative"
           display="inline-flex"
@@ -231,6 +255,18 @@ class ProjectView extends Component {
               {curRow}
             </Typography>
           </Box>
+        </Box>
+          <AddCircleIcon
+            variant="static"
+            color="primary"
+            style={{
+              display: "flex",
+              position: "relative",
+              paddingLeft: '15px'
+            }}
+            onClick={() => this.IncrementCurRow(projectJson)}
+          />
+        
         </Box>
         {hasPattern ? (
           <Box

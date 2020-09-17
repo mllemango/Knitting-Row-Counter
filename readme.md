@@ -1,5 +1,7 @@
 # Knitting Row Counter
 Heavily inspired by https://gschoppe.com/projects/knitting-row-counter/
+![image](https://user-images.githubusercontent.com/30154753/93497716-bfa65a80-f8de-11ea-96ea-ab9fc23d9635.png)
+
 
 ## Feature Plan
 

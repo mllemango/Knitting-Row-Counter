@@ -77,8 +77,8 @@ class App extends Component {
           <img
             src={require("./logo.png")}
             alt="yarnIcon"
-            width='50%'
-            height='50%'
+            width='40%'
+            height='40%'
           />
         </Box>
         <Divider variant="middle" style={{marginBottom: 30}} />

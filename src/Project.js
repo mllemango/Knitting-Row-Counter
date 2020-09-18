@@ -143,7 +143,7 @@ export class NewProjectCard extends Component {
   }
 }
 
-export function ProjectList() {
+export function Project() {
   const projectJson = cookies.get("project");
   var projectName = "";
   var projectView = "";
@@ -159,9 +159,10 @@ export function ProjectList() {
         width={1 / 2}
         justifyContent="center"
         alignItems="center"
+        // position='absolute'
         // bgcolor="grey.300"
       >
-        <Typography align="center" variant="h5" color="secondary">
+        <Typography align="center" variant="h5" color="secondary" style={{paddingBottom: '15px'}}>
           {projectName}
         </Typography>
         {projectView}

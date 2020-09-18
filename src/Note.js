@@ -35,7 +35,7 @@ const Note = () => {
       width="375px"
       bgcolor="#faf0f0"
       position="absolute"
-      top="250px"
+      top="30%"
       maxHeight="600px"
       textAlign="left"
     >

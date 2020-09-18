@@ -105,7 +105,7 @@ class App extends Component {
         {/* project */}
         <Box
           width="500px"
-          border="1px solid black"
+          // border="1px solid black"
           display="flex"
           alignItems="center"
           justifyContent="center"

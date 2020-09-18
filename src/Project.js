@@ -162,7 +162,7 @@ export function Project() {
         // position='absolute'
         // bgcolor="grey.300"
       >
-        <Typography align="center" variant="h5" color="secondary">
+        <Typography align="center" variant="h5" color="secondary" style={{paddingBottom: '15px'}}>
           {projectName}
         </Typography>
         {projectView}

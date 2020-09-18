@@ -25,8 +25,6 @@ class App extends Component {
   }
 
   spaceFunction(event) {
-    //TODO: fix bug where space in project name increments row count
-
     if (event.keyCode === 32) {
       const project = cookies.get("project");
       const curRow = parseInt(project.curRow);
@@ -57,17 +55,17 @@ class App extends Component {
   }
 
   componentDidMount() {
-    document.addEventListener("keydown", this.spaceFunction, false);
+    // document.addEventListener("keydown", this.spaceFunction, false);
   }
   componentWillUnmount() {
-    document.removeEventListener("keydown", this.spaceFunction, false);
+    // document.removeEventListener("keydown", this.spaceFunction, false);
   }
 
   render() {
     const projectExists = this.state.projectExists;
     const newProjectView = this.state.newProjectView;
     const newProjectButton = (
-      <div justifyContent="center">
+      <div>
         <Button
           color="primary"
           align="center"
@@ -91,7 +89,6 @@ class App extends Component {
           flexDirection="row"
           justifyContent="center"
           p={1}
-          backgroundColor="secondary"
         >
           <img
             src={require("./logo.png")}
@@ -101,7 +98,7 @@ class App extends Component {
           />
         </Box>
         <Divider variant="middle" style={{ marginBottom: 30 }} />
-
+        
         {/* project */}
         <Box
           width="500px"
@@ -114,7 +111,7 @@ class App extends Component {
         </Box>
 
         {/* notes */}
-        {!isMobile && <Box>{Note}</Box>}
+        {!isMobile &&<Box><Note /></Box>}
         {/* new project button */}
         {/* <Divider variant="middle" style={{ marginTop: 20, marginBottom: 10 }} /> */}
 
@@ -134,7 +131,7 @@ class App extends Component {
           right="0"
         >
           <Typography variant="overline" color="secondary">
-            use space bar or tap current row to increase
+            tap current row to increase row count
           </Typography>
         </Box>
 

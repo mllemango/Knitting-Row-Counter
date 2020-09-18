@@ -3,7 +3,6 @@
 import React, { Ref, PropsWithChildren } from "react";
 import ReactDOM from "react-dom";
 import { cx, css } from "emotion";
-import { AccessAlarm, ThreeDRotation } from '@material-ui/icons';
 
 export const Button = React.forwardRef(
   ({ className, active, reversed, ...props }, ref) => (

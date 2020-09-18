@@ -21,7 +21,9 @@ const HOTKEYS = {
 const LIST_TYPES = ["numbered-list", "bulleted-list"];
 
 const Note = () => {
-  const [value, setValue] = useState(initialValue);
+  const [value, setValue] = useState(
+    JSON.parse(localStorage.getItem("note")) || initialValue
+  );
   const renderElement = useCallback((props) => <Element {...props} />, []);
   const renderLeaf = useCallback((props) => <Leaf {...props} />, []);
   const editor = useMemo(() => withHistory(withReact(createEditor())), []);
@@ -31,7 +33,7 @@ const Note = () => {
       paddingLeft="10px"
       marginLeft="15px"
       width="375px"
-      bgcolor="#fffffa"
+      bgcolor="#faf0f0"
       position="absolute"
       top="250px"
       maxHeight="600px"
@@ -40,7 +42,11 @@ const Note = () => {
       <Slate
         editor={editor}
         value={value}
-        onChange={(value) => setValue(value)}
+        onChange={(value) => {
+          setValue(value);
+          const content = JSON.stringify(value);
+          localStorage.setItem("note", content);
+        }}
       >
         <Toolbar>
           <MarkButton format="bold" icon="format_bold" />
@@ -190,27 +196,15 @@ const initialValue = [
     type: "paragraph",
     children: [
       { text: "This area is an editable " },
-      { text: "rich ", bold: true },
+      { text: "rich", bold: true },
       { text: " text box, for project instructions, notes, etc!" },
     ],
   },
   {
-    type: "paragraph",
-    children: [
-      {
-        text:
-          "Since it's rich text, you can do things like turn a selection of text ",
-      },
-      { text: "bold", bold: true },
-      {
-        text:
-          ", or add a semantically rendered block quote in the middle of the page, like this:",
-      },
-    ],
-  },
-  {
     type: "block-quote",
-    children: [{ text: "A wise quote." }],
+    children: [
+      { text: "You can include quotes and all sorts of other styles" },
+    ],
   },
   {
     type: "paragraph",

@@ -159,6 +159,7 @@ export function Project() {
         width={1 / 2}
         justifyContent="center"
         alignItems="center"
+        // position='absolute'
         // bgcolor="grey.300"
       >
         <Typography align="center" variant="h5" color="secondary">

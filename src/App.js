@@ -3,8 +3,7 @@ import { Button, Typography, Box, Divider } from "@material-ui/core";
 import { NewProjectCard, Project } from "./Project";
 import Cookies from "universal-cookie";
 import Footer from "./footer.js";
-import {Notes} from './Notes.js';
-import RichTextExample from './richtext.js'
+import Note from "./Note.js";
 
 const cookies = new Cookies();
 
@@ -27,7 +26,7 @@ class App extends Component {
 
   spaceFunction(event) {
     //TODO: fix bug where space in project name increments row count
-    
+
     if (event.keyCode === 32) {
       const project = cookies.get("project");
       const curRow = parseInt(project.curRow);
@@ -66,43 +65,39 @@ class App extends Component {
       </div>
     );
     return (
-      <div>
+      <div align="center">
         {/* title */}
         <Box
           display="flex"
           flexDirection="row"
           justifyContent="center"
           p={1}
-          backgroundColor='secondary'
+          backgroundColor="secondary"
         >
           <img
             src={require("./logo.png")}
             alt="yarnIcon"
-            width='40%'
-            height='40%'
+            width="40%"
+            height="40%"
           />
         </Box>
-        <Divider variant="middle" style={{marginBottom: 30}} />
+        <Divider variant="middle" style={{ marginBottom: 30 }} />
 
-
+        {/* project */}
         <Box
-          display="flex"
-          flexDirection="row"
+          width="500px"
           border="1px solid black"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
         >
-          {/* notes */}
-          <Box
-            display="flex"
-            flexDirection="column"
-            >
-            {RichTextExample}
-          </Box>
-          
-          {/* project */}
           <Project />
         </Box>
+
+        {/* notes */}
+        <Box>{Note}</Box>
         {/* new project button */}
-        <Divider variant="middle" style={{marginTop: 20, marginBottom: 10}}/>
+        {/* <Divider variant="middle" style={{ marginTop: 20, marginBottom: 10 }} /> */}
 
         <Box display="flex" flexDirection="column" align="center" p={2}>
           {projectExists
@@ -115,6 +110,9 @@ class App extends Component {
           display="flex"
           flexDirection="row"
           justifyContent="center"
+          margin="auto"
+          left="0"
+          right="0"
         >
           <Typography variant="overline" color="secondary">
             use space bar or tap current row to increase
@@ -122,7 +120,7 @@ class App extends Component {
         </Box>
 
         {/* footer */}
-        <Footer/>
+        <Footer />
       </div>
     );
   }

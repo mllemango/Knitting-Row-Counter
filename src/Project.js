@@ -155,16 +155,18 @@ export function Project() {
   }
   return (
     <div align="center">
+      <Typography variant="h4" color="secondary" style={{paddingBottom: '15px'}}>
+          {projectName}
+        </Typography>
       <Box
         width={1 / 2}
         justifyContent="center"
         alignItems="center"
+        // border="1px solid black"
         // position='absolute'
         // bgcolor="grey.300"
       >
-        <Typography align="center" variant="h5" color="secondary" style={{paddingBottom: '15px'}}>
-          {projectName}
-        </Typography>
+        
         {projectView}
       </Box>
     </div>

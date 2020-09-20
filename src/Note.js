@@ -35,9 +35,9 @@ const Note = () => {
       width="375px"
       bgcolor="#faf0f0"
       position="absolute"
-      top="30%"
       maxHeight="600px"
       textAlign="left"
+
     >
       <Slate
         editor={editor}

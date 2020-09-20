@@ -82,7 +82,7 @@ class App extends Component {
     const isMobile = this.isMobile();
 
     return (
-      <div align="center">
+      <Box align="center">
         {/* title */}
         <Box
           display="flex"
@@ -99,6 +99,9 @@ class App extends Component {
         </Box>
         <Divider variant="middle" style={{ marginBottom: 30 }} />
         
+        {/* notes */}
+        {!isMobile &&<Box position='relative' float='left'><Note /></Box>}
+
         {/* project */}
         <Box
           width="500px"
@@ -110,8 +113,9 @@ class App extends Component {
           <Project />
         </Box>
 
-        {/* notes */}
-        {!isMobile &&<Box><Note /></Box>}
+        
+        
+
         {/* new project button */}
         {/* <Divider variant="middle" style={{ marginTop: 20, marginBottom: 10 }} /> */}
 
@@ -137,7 +141,7 @@ class App extends Component {
 
         {/* footer */}
         <Footer />
-      </div>
+      </Box>
     );
   }
 }

@@ -15,6 +15,7 @@ class App extends Component {
     this.state = {
       projectExists: false,
       newProjectView: false,
+      keyPressDelay: 0,
     };
 
     if (cookies.get("project") !== undefined) {
@@ -25,16 +26,30 @@ class App extends Component {
   }
 
   spaceFunction(event) {
-    if (event.keyCode === 32) {
-      const project = cookies.get("project");
-      const curRow = parseInt(project.curRow);
-      const totRow = parseInt(project.totRow);
-      if (curRow !== totRow || curRow === 0) {
-        project.lastUpdated = new Date();
-        project.curRow = curRow + 1;
-        cookies.set("project", project);
-        this.setState(this.state);
+    //double press space to incremement row count
+    if (event.keyCode === 32) { //space bar press
+      if (this.state.keyPressDelay == 0) { //if first press, set cur time 
+        this.setState({ keyPressDelay: Date.now()})
       }
+      else { // if second press, determine the delay, if its short enough, do func
+        const prevKeyPress = this.state.keyPressDelay;
+        const now = Date.now();
+        if (now - prevKeyPress < 200) {
+          const project = cookies.get("project");
+          const curRow = parseInt(project.curRow);
+          const totRow = parseInt(project.totRow);
+          if (curRow !== totRow || curRow === 0) {
+            project.lastUpdated = new Date();
+            project.curRow = curRow + 1;
+            cookies.set("project", project);
+            this.setState(this.state);
+          }
+
+          
+        }
+        this.setState({keyPressDelay: 0})
+      }
+      
     }
   }
 
@@ -55,10 +70,10 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // document.addEventListener("keydown", this.spaceFunction, false);
+    document.addEventListener("keydown", this.spaceFunction, false);
   }
   componentWillUnmount() {
-    // document.removeEventListener("keydown", this.spaceFunction, false);
+    document.removeEventListener("keydown", this.spaceFunction, false);
   }
 
   render() {
@@ -135,7 +150,7 @@ class App extends Component {
           right="0"
         >
           <Typography variant="overline" color="secondary">
-            tap current row to increase row count
+            double space anywhere or tap current row to increase row count
           </Typography>
         </Box>
 

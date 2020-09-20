@@ -7,7 +7,6 @@ import Note from "./Note.js";
 
 const cookies = new Cookies();
 
-// const cookies = new Cookies();
 class App extends Component {
   constructor() {
     super();
@@ -15,7 +14,7 @@ class App extends Component {
     this.state = {
       projectExists: false,
       newProjectView: false,
-      keyPressDelay: 0,
+      prevKeyPress: 0,
     };
 
     if (cookies.get("project") !== undefined) {
@@ -28,13 +27,16 @@ class App extends Component {
   spaceFunction(event) {
     //double press space to incremement row count
     if (event.keyCode === 32) { //space bar press
-      if (this.state.keyPressDelay == 0) { //if first press, set cur time 
-        this.setState({ keyPressDelay: Date.now()})
+      if (this.state.prevKeyPress == 0) { 
+        this.setState({ prevKeyPress: Date.now()}) //if first press, set cur time 
       }
-      else { // if second press, determine the delay, if its short enough, do func
-        const prevKeyPress = this.state.keyPressDelay;
+      else { // if second press
+        const prevKeyPress = this.state.prevKeyPress;
+        console.log('second space bar')
         const now = Date.now();
-        if (now - prevKeyPress < 200) {
+        if (now - prevKeyPress < 200) { //within 200ms delay, incremement row
+          console.log('incrementing', now - prevKeyPress)
+          
           const project = cookies.get("project");
           const curRow = parseInt(project.curRow);
           const totRow = parseInt(project.totRow);
@@ -44,10 +46,11 @@ class App extends Component {
             cookies.set("project", project);
             this.setState(this.state);
           }
-
-          
-        }
-        this.setState({keyPressDelay: 0})
+          this.setState({prevKeyPress: 0}) //restarting 
+        } 
+        else {
+          this.setState({ prevKeyPress: Date.now()}) //not within 200ms delay, count as first press
+        } 
       }
       
     }

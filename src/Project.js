@@ -162,7 +162,12 @@ export function Project() {
         // position='absolute'
         // bgcolor="grey.300"
       >
-        <Typography align="center" variant="h5" color="secondary" style={{paddingBottom: '15px'}}>
+        <Typography
+          align="center"
+          variant="h5"
+          color="secondary"
+          style={{ paddingBottom: "15px" }}
+        >
           {projectName}
         </Typography>
         {projectView}
@@ -217,57 +222,60 @@ class ProjectView extends Component {
             Current Row
           </Typography>
         </Box>
-        <Box display='flex' flexDirection='row' justifyContent='center' alignItems='center'>
-        
+        <Box
+          display="flex"
+          flexDirection="row"
+          justifyContent="center"
+          alignItems="center"
+        >
           <RemoveCircleIcon
             variant="static"
             color="primary"
             style={{
               display: "flex",
               position: "relative",
-              paddingRight: '15px'
+              paddingRight: "15px",
             }}
             onClick={() => this.DecrementCurRow(projectJson)}
           />
-        <Box
-          position="relative"
-          display="inline-flex"
-          p={1}
-          onClick={() => this.IncrementCurRow(projectJson)}
-        >
-          <CircularProgress
-            variant="static"
-            value={completion}
-            size={150}
-            thickness={4.5}
-            color="primary"
-          />
           <Box
-            top={0}
-            left={0}
-            bottom={0}
-            right={0}
-            position="absolute"
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
+            position="relative"
+            display="inline-flex"
+            p={1}
+            onClick={() => this.IncrementCurRow(projectJson)}
           >
-            <Typography variant="h3" component="div" color="primary">
-              {curRow}
-            </Typography>
+            <CircularProgress
+              variant="static"
+              value={completion}
+              size={150}
+              thickness={4.5}
+              color="primary"
+            />
+            <Box
+              top={0}
+              left={0}
+              bottom={0}
+              right={0}
+              position="absolute"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+            >
+              <Typography variant="h3" component="div" color="primary">
+                {curRow}
+              </Typography>
+            </Box>
           </Box>
-        </Box>
           <AddCircleIcon
             variant="static"
             color="primary"
             style={{
               display: "flex",
               position: "relative",
-              paddingLeft: '15px'
+              paddingLeft: "15px",
             }}
             onClick={() => this.IncrementCurRow(projectJson)}
           />
-        
         </Box>
         {hasPattern ? (
           <Box
@@ -297,15 +305,22 @@ class ProjectView extends Component {
     let repeat = parseInt(projectJson.patternRepeat);
     let start = parseInt(projectJson.patternStart);
     let curRow = parseInt(projectJson.curRow);
-    let curPatternFinished = (curRow - (start - 1)) % repeat;
-    if (curPatternFinished === 0) curPatternFinished = repeat;
-    let curPatternUnfinished = repeat - curPatternFinished;
-    for (let i = 0; i < curPatternFinished; i++) {
-      pattern.push(<PatternFinished />);
+    if (curRow < start) {
+      for (let i = 0; i < repeat; i++) {
+        pattern.push(<PatternUnfinished />);
+      }
+    } else {
+      let curPatternFinished = (curRow - (start - 1)) % repeat;
+      if (curPatternFinished === 0) curPatternFinished = repeat;
+      let curPatternUnfinished = repeat - curPatternFinished;
+      for (let i = 0; i < curPatternFinished; i++) {
+        pattern.push(<PatternFinished />);
+      }
+      for (let i = 0; i < curPatternUnfinished; i++) {
+        pattern.push(<PatternUnfinished />);
+      }
     }
-    for (let i = 0; i < curPatternUnfinished; i++) {
-      pattern.push(<PatternUnfinished />);
-    }
+
     return <div>{pattern}</div>;
   }
 }

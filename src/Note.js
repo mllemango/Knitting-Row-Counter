@@ -33,7 +33,7 @@ const Note = () => {
       paddingLeft="10px"
       marginLeft="15px"
       width="375px"
-      bgcolor="#faf0f0"
+      bgcolor='primary.light'
       position="absolute"
       maxHeight="600px"
       textAlign="left"

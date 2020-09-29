@@ -1,12 +1,9 @@
 import React, { Component } from "react";
 import { Button, Typography, Box, Divider } from "@material-ui/core";
 import { NewProjectCard, Project } from "./Project";
-import Cookies from "universal-cookie";
 import Footer from "./footer.js";
 import Note from "./Note.js";
-
-const cookies = new Cookies();
-
+import Statistics from './Statistics';
 class App extends Component {
   constructor() {
     super();
@@ -17,33 +14,32 @@ class App extends Component {
       prevKeyPress: 0,
     };
 
-    if (cookies.get("project") !== undefined) {
+    if (localStorage.getItem("project") !== undefined) {
       this.setState({ projectExists: true });
     }
-
     this.spaceFunction = this.spaceFunction.bind(this);
   }
 
   spaceFunction(event) {
     //double press space to incremement row count
+    console.log('before if')
+    console.log(this.state)
     if (event.keyCode === 32) { //space bar press
-      if (this.state.prevKeyPress == 0) { 
+      if (this.state.prevKeyPress === 0) { 
         this.setState({ prevKeyPress: Date.now()}) //if first press, set cur time 
       }
       else { // if second press
         const prevKeyPress = this.state.prevKeyPress;
-        console.log('second space bar')
         const now = Date.now();
         if (now - prevKeyPress < 200) { //within 200ms delay, incremement row
-          console.log('incrementing', now - prevKeyPress)
           
-          const project = cookies.get("project");
+          const project = JSON.parse(localStorage.getItem("project"));
           const curRow = parseInt(project.curRow);
           const totRow = parseInt(project.totRow);
           if (curRow !== totRow || curRow === 0) {
             project.lastUpdated = new Date();
             project.curRow = curRow + 1;
-            cookies.set("project", project);
+            localStorage.setItem("project", JSON.stringify(project));
             this.setState(this.state);
           }
           this.setState({prevKeyPress: 0}) //restarting 
@@ -118,8 +114,8 @@ class App extends Component {
         <Divider variant="middle" style={{ marginBottom: 30 }} />
         
         {/* notes */}
-        {!isMobile &&<Box position='relative' float='left'><Note /></Box>}
-
+        {!isMobile &&[<Box position='relative' float='left'><Note /></Box>, ]}
+        <Box position='relative' style={{float:'right'}}><Statistics/></Box>
         {/* project */}
         <Box
           width="500px"

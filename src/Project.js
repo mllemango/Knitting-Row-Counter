@@ -8,15 +8,11 @@ import {
   Switch,
   FormControlLabel,
 } from "@material-ui/core";
-import Cookies from "universal-cookie";
 import { RadioButtonUnchecked, RadioButtonChecked } from "@material-ui/icons";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import RemoveCircleIcon from "@material-ui/icons/RemoveCircle";
 
 // import yarnIcon from './yarnball.png'
-
-const cookies = new Cookies();
-
 export class NewProjectCard extends Component {
   constructor() {
     super();
@@ -34,7 +30,7 @@ export class NewProjectCard extends Component {
 
   setProject() {
     this.setState({ startTime: new Date() });
-    cookies.set("project", JSON.stringify(this.state));
+    localStorage.setItem("project", JSON.stringify(this.state));
     window.location.reload();
   }
 
@@ -144,10 +140,11 @@ export class NewProjectCard extends Component {
 }
 
 export function Project() {
-  const projectJson = cookies.get("project");
+  const projectJson = JSON.parse(localStorage.getItem("project"));
+  // const projectJson = localStorage.getItem("project")
   var projectName = "";
   var projectView = "";
-  if (projectJson === undefined) {
+  if (projectJson === null) {
     projectName = "Start new project";
   } else {
     projectName = "Project: " + projectJson.name;
@@ -187,7 +184,7 @@ class ProjectView extends Component {
     if (curRow < totRow) {
       projectJson.lastUpdated = new Date();
       projectJson.curRow = parseInt(curRow) + 1;
-      cookies.set("project", projectJson);
+      localStorage.setItem("project", JSON.stringify(projectJson));
       this.setState({ value: this.state.value + 1 }); //forcing a rerender
     }
   }
@@ -197,7 +194,7 @@ class ProjectView extends Component {
     if (curRow > 0) {
       projectJson.lastUpdated = new Date();
       projectJson.curRow = parseInt(curRow) - 1;
-      cookies.set("project", projectJson);
+      localStorage.setItem("project", JSON.stringify(projectJson));
       this.setState({ value: this.state.value - 1 }); //forcing a rerender
     }
   }

@@ -30,6 +30,7 @@ const Note = () => {
 
   return (
     <Box
+      marginTop="10px"
       paddingLeft="10px"
       marginLeft="15px"
       width="375px"

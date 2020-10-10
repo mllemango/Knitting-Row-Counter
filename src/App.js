@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import { Button, Typography, Box, Divider } from "@material-ui/core";
+import CancelIcon from '@material-ui/icons/Cancel';
 import { NewProjectCard, Project } from "./Project";
 import Footer from "./footer.js";
 import Note from "./Note.js";
-import Statistics from './Statistics';
+import Statistics from "./Statistics";
+
+
 class App extends Component {
   constructor() {
     super();
@@ -12,6 +15,7 @@ class App extends Component {
       projectExists: false,
       newProjectView: false,
       prevKeyPress: 0,
+      showNotes: true,
     };
 
     if (localStorage.getItem("project") !== undefined) {
@@ -22,17 +26,19 @@ class App extends Component {
 
   spaceFunction(event) {
     //double press space to incremement row count
-    console.log('before if')
-    console.log(this.state)
-    if (event.keyCode === 32) { //space bar press
-      if (this.state.prevKeyPress === 0) { 
-        this.setState({ prevKeyPress: Date.now()}) //if first press, set cur time 
-      }
-      else { // if second press
+    console.log("before if");
+    console.log(this.state);
+    if (event.keyCode === 32) {
+      //space bar press
+      if (this.state.prevKeyPress === 0) {
+        this.setState({ prevKeyPress: Date.now() }); //if first press, set cur time
+      } else {
+        // if second press
         const prevKeyPress = this.state.prevKeyPress;
         const now = Date.now();
-        if (now - prevKeyPress < 200) { //within 200ms delay, incremement row
-          
+        if (now - prevKeyPress < 200) {
+          //within 200ms delay, incremement row
+
           const project = JSON.parse(localStorage.getItem("project"));
           const curRow = parseInt(project.curRow);
           const totRow = parseInt(project.totRow);
@@ -42,13 +48,11 @@ class App extends Component {
             localStorage.setItem("project", JSON.stringify(project));
             this.setState(this.state);
           }
-          this.setState({prevKeyPress: 0}) //restarting 
-        } 
-        else {
-          this.setState({ prevKeyPress: Date.now()}) //not within 200ms delay, count as first press
-        } 
+          this.setState({ prevKeyPress: 0 }); //restarting
+        } else {
+          this.setState({ prevKeyPress: Date.now() }); //not within 200ms delay, count as first press
+        }
       }
-      
     }
   }
 
@@ -78,6 +82,7 @@ class App extends Component {
   render() {
     const projectExists = this.state.projectExists;
     const newProjectView = this.state.newProjectView;
+    const showNotes = this.state.showNotes;
     const newProjectButton = (
       <div>
         <Button
@@ -92,18 +97,13 @@ class App extends Component {
         </Button>
       </div>
     );
-
-    const isMobile = this.isMobile();
-
+    if (this.isMobile()) {
+      showNotes = false
+    }
     return (
       <Box align="center">
         {/* title */}
-        <Box
-          display="flex"
-          flexDirection="row"
-          justifyContent="center"
-          p={1}
-        >
+        <Box display="flex" flexDirection="row" justifyContent="center" p={1}>
           <img
             src={require("./logo.png")}
             alt="yarnIcon"
@@ -111,11 +111,26 @@ class App extends Component {
             height="40%"
           />
         </Box>
+
         <Divider variant="middle" style={{ marginBottom: 30 }} />
         
         {/* notes */}
-        {!isMobile &&[<Box position='relative' float='left'><Note /></Box>, ]}
-        <Box position='relative' style={{float:'right'}}><Statistics/></Box>
+        {showNotes && [
+          <Box position="relative" float="left">
+            
+            <Note/>
+            <CancelIcon
+              style={{position:'absolute', left:'0px', paddingLeft:'385px'}}
+              color='primary'
+              onClick={() => {this.setState({showNotes: false})}}
+            />
+            {/* </div> */}
+            
+          </Box>,
+        ]}
+        <Box position="relative" style={{ float: "right" }}>
+          <Statistics />
+        </Box>
         {/* project */}
         <Box
           width="500px"
@@ -126,9 +141,6 @@ class App extends Component {
         >
           <Project />
         </Box>
-
-        
-        
 
         {/* new project button */}
         {/* <Divider variant="middle" style={{ marginTop: 20, marginBottom: 10 }} /> */}

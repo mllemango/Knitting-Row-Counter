@@ -37,7 +37,7 @@ export class NewProjectCard extends Component {
   render() {
     const hasPattern = this.state.hasPattern;
     return (
-      <div align="center">
+      <div>
         <Box
           width={1 / 2}
           justifyContent="center"
@@ -167,14 +167,6 @@ export function Project() {
         // position='absolute'
         // bgcolor="grey.300"
       >
-        <Typography
-          align="center"
-          variant="h5"
-          color="secondary"
-          style={{ paddingBottom: "15px" }}
-        >
-          {projectName}
-        </Typography>
         {projectView}
       </Box>
     </div>

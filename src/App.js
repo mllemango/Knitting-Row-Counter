@@ -37,7 +37,6 @@ class App extends Component {
         const now = Date.now();
         if (now - prevKeyPress < 200) {
           //within 200ms delay, incremement row
-
           const project = JSON.parse(localStorage.getItem("project"));
           const curRow = parseInt(project.curRow);
           const totRow = parseInt(project.totRow);
@@ -131,14 +130,15 @@ class App extends Component {
             {/* </div> */}
           </Box>,
         ]}
-        <Box position="relative" style={{ float: "right" }}>
+        {/* statistics */}
+        {/* <Box position="relative" style={{ float: "right" }}>
           <Statistics />
-        </Box>
+        </Box> */}
         {/* project */}
         <Box
           width="500px"
           // border="1px solid black"
-          display="flex"
+          display="contents"
           alignItems="center"
           justifyContent="center"
         >

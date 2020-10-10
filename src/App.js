@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { Button, Typography, Box, Divider } from "@material-ui/core";
-import CancelIcon from '@material-ui/icons/Cancel';
+import CancelIcon from "@material-ui/icons/Cancel";
 import { NewProjectCard, Project } from "./Project";
 import Footer from "./footer.js";
 import Note from "./Note.js";
 import Statistics from "./Statistics";
-
 
 class App extends Component {
   constructor() {
@@ -82,7 +81,7 @@ class App extends Component {
   render() {
     const projectExists = this.state.projectExists;
     const newProjectView = this.state.newProjectView;
-    const showNotes = this.state.showNotes;
+    let showNotes = this.state.showNotes;
     const newProjectButton = (
       <div>
         <Button
@@ -98,7 +97,7 @@ class App extends Component {
       </div>
     );
     if (this.isMobile()) {
-      showNotes = false
+      showNotes = false;
     }
     return (
       <Box align="center">
@@ -113,19 +112,23 @@ class App extends Component {
         </Box>
 
         <Divider variant="middle" style={{ marginBottom: 30 }} />
-        
+
         {/* notes */}
         {showNotes && [
           <Box position="relative" float="left">
-            
-            <Note/>
+            <Note />
             <CancelIcon
-              style={{position:'absolute', left:'0px', paddingLeft:'385px'}}
-              color='primary'
-              onClick={() => {this.setState({showNotes: false})}}
+              style={{
+                position: "absolute",
+                left: "0px",
+                paddingLeft: "385px",
+              }}
+              color="primary"
+              onClick={() => {
+                this.setState({ showNotes: false });
+              }}
             />
             {/* </div> */}
-            
           </Box>,
         ]}
         <Box position="relative" style={{ float: "right" }}>

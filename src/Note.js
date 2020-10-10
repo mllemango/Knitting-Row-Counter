@@ -30,14 +30,15 @@ const Note = () => {
 
   return (
     <Box
+      marginTop="10px"
       paddingLeft="10px"
       marginLeft="15px"
       width="375px"
-      bgcolor="#faf0f0"
+      bgcolor='primary.light'
       position="absolute"
-      top="30%"
       maxHeight="600px"
       textAlign="left"
+
     >
       <Slate
         editor={editor}

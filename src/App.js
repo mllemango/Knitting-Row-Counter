@@ -1,13 +1,11 @@
 import React, { Component } from "react";
 import { Button, Typography, Box, Divider } from "@material-ui/core";
+import CancelIcon from "@material-ui/icons/Cancel";
 import { NewProjectCard, Project } from "./Project";
-import Cookies from "universal-cookie";
 import Footer from "./footer.js";
 import Note from "./Note.js";
+import Statistics from "./Statistics";
 
-const cookies = new Cookies();
-
-// const cookies = new Cookies();
 class App extends Component {
   constructor() {
     super();
@@ -15,41 +13,45 @@ class App extends Component {
     this.state = {
       projectExists: false,
       newProjectView: false,
-      keyPressDelay: 0,
+      prevKeyPress: 0,
+      showNotes: true,
     };
 
-    if (cookies.get("project") !== undefined) {
+    if (localStorage.getItem("project") !== undefined) {
       this.setState({ projectExists: true });
     }
-
     this.spaceFunction = this.spaceFunction.bind(this);
   }
 
   spaceFunction(event) {
     //double press space to incremement row count
-    if (event.keyCode === 32) { //space bar press
-      if (this.state.keyPressDelay == 0) { //if first press, set cur time 
-        this.setState({ keyPressDelay: Date.now()})
-      }
-      else { // if second press, determine the delay, if its short enough, do func
-        const prevKeyPress = this.state.keyPressDelay;
+    console.log("before if");
+    console.log(this.state);
+    if (event.keyCode === 32) {
+      //space bar press
+      if (this.state.prevKeyPress === 0) {
+        this.setState({ prevKeyPress: Date.now() }); //if first press, set cur time
+      } else {
+        // if second press
+        const prevKeyPress = this.state.prevKeyPress;
         const now = Date.now();
         if (now - prevKeyPress < 200) {
-          const project = cookies.get("project");
+          //within 200ms delay, incremement row
+
+          const project = JSON.parse(localStorage.getItem("project"));
           const curRow = parseInt(project.curRow);
           const totRow = parseInt(project.totRow);
           if (curRow !== totRow || curRow === 0) {
             project.lastUpdated = new Date();
             project.curRow = curRow + 1;
-            cookies.set("project", project);
+            localStorage.setItem("project", JSON.stringify(project));
             this.setState(this.state);
           }
-
-          
+          this.setState({ prevKeyPress: 0 }); //restarting
+        } else {
+          this.setState({ prevKeyPress: Date.now() }); //not within 200ms delay, count as first press
         }
-        this.setState({keyPressDelay: 0})
       }
-      
     }
   }
 
@@ -79,6 +81,7 @@ class App extends Component {
   render() {
     const projectExists = this.state.projectExists;
     const newProjectView = this.state.newProjectView;
+    let showNotes = this.state.showNotes;
     const newProjectButton = (
       <div>
         <Button
@@ -93,18 +96,13 @@ class App extends Component {
         </Button>
       </div>
     );
-
-    const isMobile = this.isMobile();
-
+    if (this.isMobile()) {
+      showNotes = false;
+    }
     return (
-      <div align="center">
+      <Box align="center">
         {/* title */}
-        <Box
-          display="flex"
-          flexDirection="row"
-          justifyContent="center"
-          p={1}
-        >
+        <Box display="flex" flexDirection="row" justifyContent="center" p={1}>
           <img
             src={require("./logo.png")}
             alt="yarnIcon"
@@ -112,8 +110,30 @@ class App extends Component {
             height="40%"
           />
         </Box>
+
         <Divider variant="middle" style={{ marginBottom: 30 }} />
-        
+
+        {/* notes */}
+        {showNotes && [
+          <Box position="relative" float="left">
+            <Note />
+            <CancelIcon
+              style={{
+                position: "absolute",
+                left: "0px",
+                paddingLeft: "385px",
+              }}
+              color="primary"
+              onClick={() => {
+                this.setState({ showNotes: false });
+              }}
+            />
+            {/* </div> */}
+          </Box>,
+        ]}
+        <Box position="relative" style={{ float: "right" }}>
+          <Statistics />
+        </Box>
         {/* project */}
         <Box
           width="500px"
@@ -125,8 +145,6 @@ class App extends Component {
           <Project />
         </Box>
 
-        {/* notes */}
-        {!isMobile &&<Box><Note /></Box>}
         {/* new project button */}
         {/* <Divider variant="middle" style={{ marginTop: 20, marginBottom: 10 }} /> */}
 
@@ -152,7 +170,7 @@ class App extends Component {
 
         {/* footer */}
         <Footer />
-      </div>
+      </Box>
     );
   }
 }
